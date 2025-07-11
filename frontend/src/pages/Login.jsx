@@ -73,7 +73,7 @@ export default function Login() {
 
         <button
           onClick={() => {
-            window.location.href = "http://localhost:5000/api/auth/google";
+            window.location.href = "http://localhost:4000/api/auth/google";
           }}
           className="w-full py-2 bg-red-500 text-white rounded mt-4"
         >
