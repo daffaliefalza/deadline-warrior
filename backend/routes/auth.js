@@ -3,11 +3,13 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import passport from "passport";
+import upload from "../modules/upload.module.js"
 
 const router = express.Router();
 
-router.post("/register", async (req, res) => {
+router.post("/register", upload.single('profileImage'), async (req, res) => {
   const { username, email, password } = req.body;
+  const profileImageUrl = req.file ? req.file.location : undefined
 
   try {
     const existingUser = await User.findOne({ email });
@@ -15,7 +17,7 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ error: "Email already registered" });
 
     const hashed = await bcrypt.hash(password, 10);
-    const user = await User.create({ username, email, password: hashed });
+    const user = await User.create({ username, email, password: hashed, profileImageUrl });
 
     res.json({ message: "User created" });
   } catch (err) {

@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false, // ✅ Password is optional (especially for OAuth)
   },
+  profileImageUrl: String,
   googleId: { type: String, unique: true, sparse: true },
 });
 
